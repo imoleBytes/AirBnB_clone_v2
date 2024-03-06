@@ -13,11 +13,9 @@ file_path="/data/web_static/current"
 
 if [ -e "$file_path" ]
 then
-    echo "File exists"
     rm "$file_path"
     ln /data/web_static/releases/test/ /data/web_static/current
 else
-    echo "File does not exist"
     ln /data/web_static/releases/test/ /data/web_static/current
 fi
 
