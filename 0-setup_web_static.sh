@@ -14,9 +14,9 @@ file_path="/data/web_static/current"
 if [ -e "$file_path" ]
 then
     rm "$file_path"
-    ln /data/web_static/releases/test/ /data/web_static/current
+    ln -s /data/web_static/releases/test/ /data/web_static/current
 else
-    ln /data/web_static/releases/test/ /data/web_static/current
+    ln -s /data/web_static/releases/test/ /data/web_static/current
 fi
 
 chown -R ubuntu:ubuntu /data/
