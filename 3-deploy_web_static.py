@@ -66,7 +66,7 @@ def do_deploy(archive_path):
             sudo(f"mv web_static/* .")
             sudo(f"rm -rf web_static")
         if os.path.exists(symbolic_link):
-            sudo(f"rm {symbolic_link}")
+            sudo(f"rm -rf {symbolic_link}")
         sudo(f"ln -s {new_path_to_dir} {symbolic_link}")
 
         sudo("service nginx restart")
