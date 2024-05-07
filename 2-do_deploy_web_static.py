@@ -49,23 +49,28 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
     # upload the archive file to /tmp/ of the servers
-    file_name_with_ext = os.path.basename(archive_path)
-    file_name_without_ext = file_name_with_ext.split('.')[0]
-    new_path_to_dir = f"/data/web_static/releases/{file_name_without_ext}"
-    symbolic_link = "/data/web_static/current"
 
-    put(archive_path, "/tmp/", use_sudo=True)
-    run(f"sudo mkdir -p {new_path_to_dir}")
+    try:  # to check if any error occur
+        file_name_with_ext = os.path.basename(archive_path)
+        file_name_without_ext = file_name_with_ext.split('.')[0]
+        new_path_to_dir = f"/data/web_static/releases/{file_name_without_ext}"
+        symbolic_link = "/data/web_static/current"
 
-    with cd("/tmp/"):
-        run(f"sudo tar -xvzf {file_name_with_ext} -C {new_path_to_dir}")
-        sudo(f"rm {file_name_with_ext}")
-    with cd(f"{new_path_to_dir}/"):
-        sudo(f"mv web_static/* .")
-        sudo(f"rm -rf web_static")
-    if os.path.exists(symbolic_link):
-        sudo(f"rm {symbolic_link}")
-    sudo(f"ln -s {new_path_to_dir} {symbolic_link}")
+        put(archive_path, "/tmp/", use_sudo=True)
+        run(f"sudo mkdir -p {new_path_to_dir}")
 
-    print("New version deployed!")
-    return True
+        with cd("/tmp/"):
+            run(f"sudo tar -xvzf {file_name_with_ext} -C {new_path_to_dir}")
+            sudo(f"rm {file_name_with_ext}")
+        with cd(f"{new_path_to_dir}/"):
+            sudo(f"mv web_static/* .")
+            sudo(f"rm -rf web_static")
+        if os.path.exists(symbolic_link):
+            sudo(f"rm {symbolic_link}")
+        sudo(f"ln -s {new_path_to_dir} {symbolic_link}")
+
+        print("New version deployed!")
+
+        return True
+    except Exception:
+        return False  # returns False if any error occurs
