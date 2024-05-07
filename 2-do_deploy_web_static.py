@@ -66,7 +66,6 @@ def do_deploy(archive_path):
     if os.path.exists(symbolic_link):
         sudo(f"rm {symbolic_link}")
     sudo(f"ln -s {new_path_to_dir} {symbolic_link}")
-    sudo(f"mv {new_path_to_dir}/web_static/* {new_path_to_dir}")
-    sudo(f"rm -rf {new_path_to_dir}/web_static")
 
     print("New version deployed!")
+    return True
