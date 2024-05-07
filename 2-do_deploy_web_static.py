@@ -69,6 +69,7 @@ def do_deploy(archive_path):
             sudo(f"rm {symbolic_link}")
         sudo(f"ln -s {new_path_to_dir} {symbolic_link}")
 
+        sudo("service nginx restart")
         print("New version deployed!")
 
         return True
