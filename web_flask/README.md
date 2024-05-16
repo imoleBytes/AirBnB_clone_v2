@@ -4,6 +4,7 @@
 1. import the Flask Class from flask
 `from flask import Flask`
 2. create an instatnce of that class, and pass the name of the module to it.
+
 `app = Flask(__name__)`
 3. create routesusing the decorator @route
 ```
