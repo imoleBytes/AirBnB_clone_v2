@@ -10,18 +10,20 @@ from flask import render_template
 from markupsafe import escape
 
 
-
 app = Flask(__name__)
+
 
 @app.route("/", strict_slashes=False)
 def index():
     """view function for the index route or page"""
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
     """view function for the hbnb page"""
     return "HBNB"
+
 
 @app.route("/c/<text>", strict_slashes=False)
 def c_text(text):
@@ -32,15 +34,18 @@ def c_text(text):
     txt = text.replace('_', ' ')
     return f"C {escape(txt)}"
 
+
 @app.route("/python", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def py_text(text='is cool'):
     """
-    display “Python ”, followed by the value of the text variable (replace underscore _ symbols with a space )
+    display “Python ”, followed by the value of the text
+    variable (replace underscore _ symbols with a space )
     The default value of text is “is cool”
     """
     txt = text.replace('_', ' ')
     return f"Python {escape(txt)}"
+
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def display_n(n):
@@ -50,6 +55,7 @@ def display_n(n):
     if isinstance(n, int):
         return f"{escape(n)} is a number"
 
+
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def number_template(n):
     """
@@ -58,6 +64,7 @@ def number_template(n):
     """
     if isinstance(n, int):
         return render_template("5-number.html", num=n)
+
 
 @app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
 def number_odd_or_even(n):
@@ -71,5 +78,3 @@ def number_odd_or_even(n):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-
-
