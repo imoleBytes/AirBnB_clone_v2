@@ -6,6 +6,7 @@ from sqlalchemy import Column, String, ForeignKey
 import models
 import shlex
 
+
 class State(BaseModel):
     """ State class """
     __tablename__ = "states"
@@ -16,15 +17,16 @@ class State(BaseModel):
 
     @property
     def cities(self):
-        varr = models.storage.all()
-        lst = []
-        rslt = []
-        for key in varr:
-            city = key.replace('.', ' ')
-            city = shlex.split(city)
-            if (city[0] == 'City'):
-                lst.append(varr[key])
-        for el in lst:
+        """returns cities with state_id = self.id"""
+        all_objects = models.storage.all()
+        lst_cities = []
+        result = []
+        for key in all_objects:
+            ky = key.replace('.', ' ')
+            clss = shlex.split(ky)
+            if (clss[0] == 'City'):
+                lst_cities.append(all_objects[key])
+        for el in lst_cities:
             if (el.state_id == self.id):
-                rslt.append(el)
-        return (rslt)
+                result.append(el)
+        return result

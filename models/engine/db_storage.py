@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+"""This module defines a class to manage db storage for hbnb clone"""
 
 
 class DBStorage:
+    """DBStorage class definition"""
     __engine = None
     __session = None
 
